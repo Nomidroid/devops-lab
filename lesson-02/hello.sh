@@ -1,3 +1,3 @@
 #!/bin/bash
-echo "Привет, $(whoami)! Сегодня $(date)"
+echo "Привет из ветки greeting!"
 df -h / && free -h
