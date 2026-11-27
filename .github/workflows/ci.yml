@@ -3,13 +3,22 @@ name: DevOps Lab CI
 on:
   push:
     branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
 jobs:
-  build-docker:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
-        - name: Checkout repository
-          uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-        - name: Build Docker image
-          run: docker build -t devops-flask:ci ./lesson-03/my-app
+      - name: Build Docker image
+        run: docker build -t devops-flask:ci ./lesson-03/my-app
+
+      - name: Test Docker container
+        run: |
+          docker run -d --name test-app -p 5000:5000 -e APP_ENV=ci devops-flask:ci
+          sleep 3
+          curl -f http://localhost:5000
+          docker rm -f test-app
