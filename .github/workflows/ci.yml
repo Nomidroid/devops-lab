@@ -1,0 +1,15 @@
+name: DevOps Lab CI
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build-docker:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
+
+        - name: Build Docker image
+          run: docker build -t devops-flask:ci ./lesson-03/my-app
