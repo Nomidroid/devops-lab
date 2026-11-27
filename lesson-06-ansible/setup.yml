@@ -1,0 +1,14 @@
+- name: Configure local server
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Create app config directory
+      ansible.builtin.file:
+        path: /home/nomi/devops-lab/lesson-06-ansible/app-config
+        state: directory
+        mode: "0755"
+
+    - name: Create config file
+      ansible.builtin.copy:
+        dest: /home/nomi/devops-lab/lesson-06-ansible/app-config/settings.conf
+        content: "env=production\nport=8080\n"
